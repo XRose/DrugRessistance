@@ -6,7 +6,7 @@ import java.util.Random;
 public class Drug {
 	private Integer geneticCode;
 	//doctor must reset total cured each round after calling evolve on drug
-	static double numCuredThisRound;
+	//static double numCuredThisRound;
 	/*these total values refer to the grand total over time,
 	 * they are not reset.*/
 	private double totalCured;
@@ -14,6 +14,8 @@ public class Drug {
 	/*these values are reset after each evolution*/
 	private double numberTreated;
 	private double numberCured;
+	private static double mutationRate = .05;
+	private static double crossoverRate = .5;
 	public Drug(Integer gene){
 		this.geneticCode = gene;
 		this.numberTreated = 0;
@@ -32,7 +34,12 @@ public class Drug {
 	//	return this.numberTreated*(this.numberCured/this.numberTreated);
 		return (this.numberCured/this.numberTreated);
 	}
-
+	public static Double getMutationRate(){
+		return mutationRate;
+	}
+	public static Double getCrossoverRate(){
+		return crossoverRate;
+	}
 	public void update(boolean effective){
 		this.numberTreated++;
 		this.totalTreated++;
