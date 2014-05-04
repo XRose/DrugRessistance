@@ -19,13 +19,17 @@ static Random rand = new Random();
     {
 		ActorWorld world = new ActorWorld();
 		spawnPathogens(5);
+		spawnDrugs(3);
 		LinkedList<Location> loc = spawnDoctors(2, world);
 		spawnHumans(5,loc,world);
-		Tracker watcher = new Tracker(drugList, humanList);
-		world.add(world.getRandomEmptyLocation(), watcher);
 	    world.show();
     }
-	
+	public static void spawnDrugs(int numDrugs){
+		drugList = new ArrayList<Drug>();
+		for(int x = 0; x<numDrugs; x++){
+			drugList.add(new Drug(rand.nextInt()));
+		}
+	}
 	public static void spawnPathogens(int numBugs){
 		pathogenList = new ArrayList<Pathogen>();
 		for(int x=0; x<numBugs; x++){
@@ -39,14 +43,13 @@ static Random rand = new Random();
 			humanList.set(x, dude);
 			world.add(world.getRandomEmptyLocation(), dude);
 		}
-		
 	}
 	public static LinkedList<Location> spawnDoctors(int numDoctors, ActorWorld world){
 		LinkedList<Location> hospList= new LinkedList<Location>();
 		doctorList = new ArrayList<Doctor>();
 		for(int x = 0; x<numDoctors; x++){
 			//there is no constructor, I'm not sure how this will work
-			Doctor dudeMD = new Doctor();
+			Doctor dudeMD = new Doctor(drugList);
 			doctorList.add(dudeMD);
 			Location loc = world.getRandomEmptyLocation();
 			hospList.add(loc);
