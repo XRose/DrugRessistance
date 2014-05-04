@@ -8,19 +8,21 @@ import info.gridworld.actor.Actor;
 import info.gridworld.actor.Bug;
 
 public class Doctor extends Actor{
-	private int steps  = 0;
-	private int sideLength = 6;
+
 	private LinkedList<Human> appointments = new LinkedList<Human>();
 	private ArrayList<Drug> drugPool;
-	
+
+	public Doctor(ArrayList<Drug> drugPool){
+		this.drugPool = drugPool;
+	}
 	public boolean treat(Human patient, Drug treatment){
 		boolean effective = patient.takeDrug(treatment);
 		treatment.update(effective);
 		return effective;
 	}
-	
+
 	public void treat(Human patient){
-		
+
 	}
 	//treats patients with all the drugs
 	public void treatAll(Human patient){
@@ -53,7 +55,7 @@ public class Doctor extends Actor{
 					most = count;
 				}
 			}
-			
+
 			if(countMap.containsKey(best)){
 				countMap.put(best,countMap.get(best)+1);
 			}
@@ -70,7 +72,7 @@ public class Doctor extends Actor{
 		}
 		this.treat(patient, best);
 	}
-	
+
 	//treats patients with the best drug for each disease
 	public void treatBestAll(Human patient){
 		for (Pathogen disease: patient.getDiseases()){
@@ -93,11 +95,11 @@ public class Doctor extends Actor{
 			this.treat(patient, best);
 		}
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 	 public void act()
 	    {
 		 	Human currentPatient = appointments.pop();
